@@ -1,0 +1,29 @@
+{
+  "GlobalConfiguration": {
+    "ServiceDiscoveryProvider": {
+      "Host": "localhost",
+      "Port": 9500,
+      "Type": "Consul",
+      "ConfigurationKey": "Ocelot"
+    }
+  },
+  "Routes": [
+    {
+      "ServiceName": "ordering",
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": " localhost",
+          "Port": 7112
+        }
+      ],
+      "FileCacheOptions": {
+        "TtlSeconds": 5,
+        "Region": "ordering"
+      },
+      "UpstreamPathTemplate": "/ordering/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
+    }
+  ]
+}
